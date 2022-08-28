@@ -31,10 +31,10 @@ export class Property {
   @Column("integer", { nullable: false })
   size: number;
 
-  @CreateDateColumn("date")
+  @CreateDateColumn()
   createdAt: Date;
 
-  @UpdateDateColumn("date")
+  @UpdateDateColumn()
   updateddAt: Date;
 
   @OneToMany((type) => Schedule, (schedule) => schedule.property)
