@@ -9,6 +9,7 @@ import {
   UpdateDateColumn,
   JoinTable,
   JoinColumn,
+  Unique,
 } from "typeorm";
 import { v4 as uuidv4 } from "uuid";
 import { Address } from "./address.entity";
@@ -16,6 +17,7 @@ import { Category } from "./category.entity";
 import { Schedule } from "./schedule.entity";
 
 @Entity()
+@Unique(["address"])
 export class Property {
   @PrimaryColumn("uuid")
   readonly id: string;
@@ -34,6 +36,20 @@ export class Property {
 
   @UpdateDateColumn("date")
   updateddAt: Date;
+
+  @OneToMany((type) => Schedule, (schedule) => schedule.property)
+  @JoinColumn()
+  schedules: Schedule[];
+
+  @OneToOne((type) => Address, { eager: true, nullable: false })
+  @JoinColumn()
+  address: Address;
+
+  @ManyToOne((type) => Category, (category) => category.properties, {
+    nullable: false,
+  })
+  @JoinColumn()
+  category: Category;
 
   constructor() {
     if (!this.id) {

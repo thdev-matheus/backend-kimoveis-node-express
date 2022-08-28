@@ -5,8 +5,10 @@ import {
   OneToMany,
   CreateDateColumn,
   UpdateDateColumn,
+  JoinColumn,
 } from "typeorm";
 import { v4 as uuidv4 } from "uuid";
+import { Schedule } from "./schedule.entity";
 
 @Entity()
 export class User {
@@ -33,6 +35,10 @@ export class User {
 
   @UpdateDateColumn()
   updatedAt: Date;
+
+  @OneToMany((type) => Schedule, (schedule) => schedule.user, { eager: true })
+  @JoinColumn()
+  schedules: Schedule[];
 
   constructor() {
     if (!this.id) {
