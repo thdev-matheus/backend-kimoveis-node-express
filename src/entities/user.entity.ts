@@ -24,11 +24,11 @@ export class User {
   @Column("boolean", { nullable: false })
   isAdm: boolean;
 
-  @Column("boolean", { nullable: false })
-  isActive: boolean;
-
   @Column("varchar", { nullable: false })
   password: string;
+
+  @Column("boolean", { nullable: false, default: true })
+  isActive: boolean;
 
   @CreateDateColumn()
   createdAt: Date;
