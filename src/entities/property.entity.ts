@@ -13,6 +13,7 @@ import {
 import { v4 as uuidv4 } from "uuid";
 import { Address } from "./address.entity";
 import { Category } from "./category.entity";
+import { Schedule } from "./schedule.entity";
 
 @Entity()
 export class Property {
@@ -33,13 +34,6 @@ export class Property {
 
   @UpdateDateColumn("date")
   updateddAt: Date;
-
-  @ManyToOne((type) => Category, (category) => category.properties)
-  addressId: string;
-
-  @OneToOne((type) => Address, { eager: true })
-  @JoinColumn()
-  address: Address;
 
   constructor() {
     if (!this.id) {

@@ -7,19 +7,19 @@ export class Address {
   @PrimaryColumn("uuid")
   readonly id: string;
 
-  @Column("varchar", { length: 50 })
+  @Column("varchar", { length: 50, nullable: false })
   district: string;
 
-  @Column("varchar", { length: 50 })
+  @Column("varchar", { length: 50, nullable: false })
   zipCode: string;
 
   @Column("varchar", { length: 50 })
   number: string;
 
-  @Column("varchar", { length: 50 })
+  @Column("varchar", { length: 50, nullable: false })
   city: string;
 
-  @Column("varchar", { length: 50 })
+  @Column("varchar", { length: 50, nullable: false })
   state: string;
 
   constructor() {
