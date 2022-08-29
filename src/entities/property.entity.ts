@@ -35,7 +35,7 @@ export class Property {
   createdAt: Date;
 
   @UpdateDateColumn()
-  updateddAt: Date;
+  updatedAt: Date;
 
   @OneToMany((type) => Schedule, (schedule) => schedule.property)
   @JoinColumn()

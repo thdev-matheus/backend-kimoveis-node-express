@@ -14,7 +14,10 @@ export class Schedule {
   @Column("time", { nullable: false })
   hour: string;
 
-  @ManyToOne((type) => User, (user) => user.schedules, { nullable: false })
+  @ManyToOne((type) => User, (user) => user.schedules, {
+    nullable: false,
+    eager: true,
+  })
   user: User;
 
   @ManyToOne((type) => Property, (property) => property.schedules, {
