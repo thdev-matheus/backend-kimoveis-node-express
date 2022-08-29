@@ -6,7 +6,7 @@ import { userCreateService } from "../../services/users/userCreate.service";
 export const userCreateController = async (req: Request, res: Response) => {
   const { name, email, password, isAdm }: IUserRequest = req.body;
 
-  if (!name || !email || !password || !isAdm) {
+  if (!name || !email || !password || isAdm === undefined) {
     throw new AppError(
       "The following fields are required: name: string, email: string, password: string, isAdm: boolean.",
       400,

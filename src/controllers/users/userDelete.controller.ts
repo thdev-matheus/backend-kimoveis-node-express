@@ -9,7 +9,7 @@ export const userDeleteController = async (req: Request, res: Response) => {
     throw new AppError("User id is missing", 400, "https://http.cat/400");
   }
 
-  const deletedUserMessage = await userDeleteService(userId);
+  const deletedUser = await userDeleteService(userId);
 
-  return res.status(204).json({ message: deletedUserMessage });
+  return res.status(204).json(deletedUser);
 };

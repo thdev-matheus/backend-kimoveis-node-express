@@ -10,25 +10,15 @@ export const userDeleteService = async (userId: string) => {
     throw new AppError("User not found", 404, "https://http.cat/404");
   }
 
-  if (!user.isAdm) {
-    throw new AppError(
-      "This route can only be accessed by administrators.",
-      401,
-      "https://http.cat/401"
-    );
-  }
-
   if (!user.isActive) {
     throw new AppError(
       "Unable to delete users who are not active",
-      401,
-      "https://http.cat/401"
+      400,
+      "https://http.cat/400"
     );
   }
 
-  user.isActive = false;
+  const deletedUSer = await userRepository.update(userId, { isActive: false });
 
-  await userRepository.save(user);
-
-  return "User successfuly deleted";
+  return deletedUSer;
 };

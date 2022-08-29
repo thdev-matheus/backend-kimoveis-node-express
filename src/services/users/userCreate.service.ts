@@ -16,8 +16,8 @@ export const userCreateService = async ({
   if (userAlreadyExists) {
     throw new AppError(
       "Email already exists in database.",
-      409,
-      "https://http.cat/409"
+      400,
+      "https://http.cat/400"
     );
   }
 

@@ -8,17 +8,15 @@ export const authValidation = (
   next: NextFunction
 ) => {
   try {
-    const { authorization } = req.headers;
+    const token = req.headers.authorization?.split(" ")[1];
 
-    if (!authorization) {
+    if (!token) {
       throw new AppError(
         "Authentication token is missing",
         401,
         "https://http.cat/401"
       );
     }
-
-    const token = authorization.split(" ")[1];
 
     jwt.verify(
       token as string,
