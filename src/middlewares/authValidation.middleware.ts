@@ -23,6 +23,7 @@ export const authValidation = (
       process.env.SECRET_KEY as string,
       (err: any, decoded: any) => {
         req.userEmail = decoded.email;
+        req.userId = decoded.id;
         next();
       }
     );

@@ -11,12 +11,11 @@ export class Schedule {
   @Column("date", { nullable: false })
   date: Date;
 
-  @Column("time", { nullable: false })
-  hour: string;
+  @Column("bigint", { nullable: false })
+  hour: number;
 
   @ManyToOne((type) => User, (user) => user.schedules, {
     nullable: false,
-    eager: true,
   })
   user: User;
 

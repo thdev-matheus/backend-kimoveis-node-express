@@ -29,9 +29,16 @@ export const loginService = async ({ email, password }: IUserLogin) => {
     );
   }
 
-  const token = jwt.sign({ email }, String(process.env.SECRET_KEY), {
-    expiresIn: "24h",
-  });
+  const token = jwt.sign(
+    {
+      email: user.email,
+      id: user.id,
+    },
+    String(process.env.SECRET_KEY),
+    {
+      expiresIn: "24h",
+    }
+  );
 
   return { token, user };
 };
