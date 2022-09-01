@@ -4,7 +4,9 @@ export class DateHandling {
   static dateEncode(date: string, hour: string): IDateEncoded {
     //date: aaaa/mm/dd && hour: hh:mm
     const dateHandling = date.split("/").join("-");
-    const dateEnc = new Date(`${dateHandling}T${hour}`);
+    const dateEnc = new Date(
+      `${dateHandling}T${hour.length < 5 ? `0${hour}` : hour}`
+    );
     const hourEnc = dateEnc.getTime();
     const weekDay = dateEnc.getDay();
 
@@ -16,7 +18,7 @@ export class DateHandling {
   }
 
   static dateDecode(date: Date, hour: number): IDateDecoded {
-    const fullDate = date.toLocaleDateString().split("/").reverse().join("/");
+    const fullDate = date.toLocaleDateString().split("/").reverse().join("-");
     const fullHour = new Date(hour).toLocaleTimeString("pt-BR", {
       hour: "numeric",
       minute: "numeric",

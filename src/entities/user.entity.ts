@@ -36,7 +36,7 @@ export class User {
   @UpdateDateColumn()
   updatedAt: Date;
 
-  @OneToMany((type) => Schedule, (schedule) => schedule.user, { eager: true })
+  @OneToMany((type) => Schedule, (schedule) => schedule.user)
   @JoinColumn()
   schedules: Schedule[];
 

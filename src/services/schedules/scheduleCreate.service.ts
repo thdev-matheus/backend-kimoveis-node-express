@@ -23,6 +23,22 @@ export const scheduleCreateService = async ({
   );
   const verifyIsWeekDay = DateHandling.isWeekDay(dateTransformed.weekDay);
 
+  if (!verifyIsComercialHour) {
+    throw new AppError(
+      "It is only possible to register a schedule for business hours",
+      400,
+      "https://http.cat/400"
+    );
+  }
+
+  if (!verifyIsWeekDay) {
+    throw new AppError(
+      "It is only possible to register a schedule for working days",
+      400,
+      "https://http.cat/400"
+    );
+  }
+
   const user = await userRepository.findOne({
     where: { id: userId },
     relations: { schedules: true },
@@ -56,9 +72,22 @@ export const scheduleCreateService = async ({
   );
 
   */
+  /* 
+ const scheduleAllreadyExists = await scheduleRepository.find({
+    relations: { property: true },
+    where: {
+      date: dateTransformed.dateEnc,
+      hour: dateTransformed.hourEnc,
+    },
+  });
+
+ */
 
   const scheduleAllreadyExists = await scheduleRepository.findOne({
-    where: { date: dateTransformed.dateEnc, hour: dateTransformed.hourEnc },
+    where: {
+      date: String(dateTransformed.dateEnc).split("T")[0],
+      hour: dateTransformed.hourEnc,
+    },
   });
 
   if (scheduleAllreadyExists) {
@@ -69,24 +98,8 @@ export const scheduleCreateService = async ({
     );
   }
 
-  if (!verifyIsComercialHour) {
-    throw new AppError(
-      "It is only possible to register a schedule for business hours",
-      400,
-      "https://http.cat/400"
-    );
-  }
-
-  if (!verifyIsWeekDay) {
-    throw new AppError(
-      "It is only possible to register a schedule for working days",
-      400,
-      "https://http.cat/400"
-    );
-  }
-
   const newSchedule = scheduleRepository.create({
-    date: dateTransformed.dateEnc,
+    date: String(dateTransformed.dateEnc).split("T")[0],
     hour: dateTransformed.hourEnc,
     property,
     user,

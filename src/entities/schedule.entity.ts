@@ -1,3 +1,4 @@
+import { type } from "os";
 import { Entity, Column, PrimaryColumn, ManyToOne } from "typeorm";
 import { v4 as uuidv4 } from "uuid";
 import { Property } from "./property.entity";
@@ -8,14 +9,15 @@ export class Schedule {
   @PrimaryColumn("uuid")
   readonly id: string;
 
-  @Column("date", { nullable: false })
-  date: Date;
+  @Column({ nullable: false, type: "date" })
+  date: string;
 
-  @Column("bigint", { nullable: false })
+  @Column({ nullable: false, type: "time" })
   hour: number;
 
   @ManyToOne((type) => User, (user) => user.schedules, {
     nullable: false,
+    eager: true,
   })
   user: User;
 
